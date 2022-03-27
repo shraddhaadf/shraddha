@@ -1,0 +1,9 @@
+{
+	"name": "shraddhadatafactory",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "ce380474-a62d-4c09-8f71-9ce711d92c70",
+		"tenantId": "f0ec429a-b2a2-457b-89d4-17c0d71ac4bd"
+	}
+}

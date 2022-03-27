@@ -1,0 +1,27 @@
+{
+	"name": "ds_sqlserver",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "lnk_sqlserver",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "names",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "empdata"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
