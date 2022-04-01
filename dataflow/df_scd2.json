@@ -1,5 +1,5 @@
 {
-	"name": "df_scd1",
+	"name": "df_scd2",
 	"properties": {
 		"type": "MappingDataFlow",
 		"typeProperties": {
@@ -9,7 +9,7 @@
 						"referenceName": "ds_empdata",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "txtsrc"
 				}
 			],
 			"sinks": [
@@ -18,24 +18,24 @@
 						"referenceName": "ds_sqlserver",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "dest"
 				}
 			],
 			"transformations": [
 				{
-					"name": "alterRow1"
+					"name": "add111isactive"
 				}
 			],
 			"scriptLines": [
 				"source(output(",
-				"          id as integer,",
+				"          id as string,",
 				"          Name as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
-				"source1 alterRow(upsertIf(1==1)) ~> alterRow1",
-				"alterRow1 sink(allowSchemaDrift: true,",
+				"     ignoreNoFilesFound: false) ~> txtsrc",
+				"txtsrc derive(IsActive = 1) ~> add111isactive",
+				"add111isactive sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
 				"          id as integer,",
@@ -44,18 +44,13 @@
 				"          Eid as integer",
 				"     ),",
 				"     deletable:false,",
-				"     insertable:false,",
+				"     insertable:true,",
 				"     updateable:false,",
-				"     upsertable:true,",
-				"     keys:['id'],",
+				"     upsertable:false,",
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          id,",
-				"          names = Name",
-				"     )) ~> sink1"
+				"     errorHandlingOption: 'stopOnFirstError') ~> dest"
 			]
 		}
 	}
